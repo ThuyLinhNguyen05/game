@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef GAME_H
 #define GAME_H
 
@@ -15,3 +16,6 @@ public:
 
 
 
+=======
+
+>>>>>>> fa739727354dd3ee343a3db79d64b25992dffd57
