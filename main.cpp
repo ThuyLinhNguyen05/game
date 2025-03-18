@@ -42,8 +42,17 @@ public:
         }
         SDL_RenderPresent(renderer);
     }
-    void run() {}
-    ~Game() {}
+    void run() {
+        while (running){
+            render();
+            SDL_Delay(16);
+        }
+    }
+    ~Game() {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
 };
 
 int main()
