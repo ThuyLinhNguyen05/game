@@ -1,5 +1,8 @@
 #include <iostream>
 #include <SDL.h>
+#include <vector>
+#include "Wall.h"
+#include "PlayerTank.h"
 
 using namespace std;
 
@@ -8,6 +11,68 @@ const int SCREEN_HEIGHT = 600;
 const int TILE_SIZE = 40;
 const int MAP_WIDTH = SCREEN_WIDTH / TILE_SIZE;
 const int MAP_HEIGHT = SCREEN_HEIGHT / TILE_SIZE;
+
+
+class Wall {
+public:
+    int x, y;
+    SDL_Rect rect;
+    bool active;
+
+    Wall (int startX, int startY) {
+        x = startX;
+        y = startY;
+        active = true;
+        rect = {x, y,TILE_SIZE, TILE_SIZE};
+    }
+
+    void render (SDL_Renderer* renderer) {
+        if (active) {
+            SDL_SetRenderDrawColor(renderer, 150, 75, 0, 255);
+            SDL_RenderFillRect(renderer, &rect);
+        }
+    }
+};
+
+class PlayerTank {
+public:
+    int x, y;
+    int dirX, dirY;
+    SDL_Rect rect;
+
+    PlayerTank (int startX, int startY){
+        x = startX;
+        y = startY;
+        rect = {x, y, TILE_SIZE, TILE_SIZE};
+        dirX = 0;
+        dirY = -1;
+    }
+    void move (int dx, int dy, const vector<Wall>& walls ){
+        int newX = x + dx;
+        int newY = y + dy;
+        this ->dirX = dx;
+        this ->dirY = dy;
+
+        SDL_Rect newRect = { newX, newY, TILE_SIZE, TILE_SIZE};
+        for (int i = 0; i < walls.size(); i++){
+            if (walls[i].active && SDL_HasIntersection(&newRect, &walls[i].rect)){
+                return;
+            }
+        }
+        if (newX >= TILE_SIZE && newX <= SCREEN_WIDTH - TILE_SIZE * 2 && newY >= TILE_SIZE && newY <= SCREEN_HEIGHT - TILE_SIZE * 2){
+            x = newX;
+            y = newY;
+            rect.x = x;
+            rect.y = y;
+        }
+    }
+
+    void render (SDL_Renderer* renderer){
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+        SDL_RenderFillRect(renderer, &rect);
+    }
+};
+
 
 class Game {
 public:
@@ -90,64 +155,37 @@ public:
         }
     }
 };
-
-class Wall {
+class Bullet {
 public:
-    int x, y;
+    int x, int y;
+    int dx, int dy;
     SDL_Rect rect;
     bool active;
 
-    Wall (int startX, int startY) {
+    Bullet(int startX, int startY, int dirX, int dirY){
         x = startX;
         y = startY;
+        dx = dirX;
+        dy = dirY;
         active = true;
-        rect = {c, y, TILE_SIZE, TILE_SIZE};
+        rect = {x, y, 10, 10};
     }
-
-    void render (SDL_Renderer* renderer) {
-        if (active) {
-            SDL_SetRenderDrawColor(renderer, 150, 75, 0, 255);
+    void move (){
+        x += dx;
+        y += dy;
+        rect.x = x;
+        rect.y = y;
+        if (x < TILE_SIZE || x > SCREEN_WIDTH - TILE_SIZE || y < TILE_SIZE || Y > SCREEN_HEIGHT - TILE_SIZE){
+            active = false;
+        }
+    }
+    void render (SDL_Renderer* renderer){
+        if (active){
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             SDL_RenderFillRect(renderer, &rect);
         }
     }
-};
-class PlayerTank {
-public:
-    int x, y;
-    int dirX, dirY;
-    SDL_Rect rect;
 
-    PlayerTank (int startX, int startY){
-        x = startX;
-        y = startY;
-        rect = {x, y, TILE_SIZE, TILE_SIZE};
-        dirX = 0;
-        dirY = -1;
-    }
-    void move (int dx, int dy, const vector<Wall>& walls ){
-        int newX = x + dx;
-        int newY = y + dy;
-        this ->dirX = dx;
-        this ->dirY = dy;
-
-        SDL_Rect newRect = { newX, newY, TILE_SIZE, TILE_SIZE};
-        for (int i = 0; i < walls.size(); i++){
-            if (walls[i].active && SDL_HasIntersection(&newRect, &walls[i].rect)){
-                return;
-            }
-        }
-        if (newX >= TILE_SIZE && newX <= SCREEN_WIDTH - TILE_SIZE * 2 && newY >= TILE_SIZE && newY <= SCREEN_HEIGHT - TILE_SIZE * 2){
-            x = newX;
-            y = newY;
-            rect.x = x;
-            rect.y = y;
-        }
-    }
-
-    void render (SDL_Renderer* renderer){
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &rect);
-    }
 };
 
 
