@@ -1,5 +1,8 @@
 # depslib dependency file v1.0
-1742311365 source:c:\users\admin\downloads\game\main.cpp
+1744193119 source:c:\users\admin\downloads\game\main.cpp
 	<iostream>
 	<SDL.h>
+	<SDL_image.h>
+	<vector>
+	"PlayerTank.h"
 

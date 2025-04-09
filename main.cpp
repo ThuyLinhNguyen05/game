@@ -1,7 +1,11 @@
-#include <iostream>
+#define GAME_H
+#ifndef GAME_H
+
+#define SDL_MAIN_HANDLED
+#include<iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 #include <vector>
-#include "Wall.h"
 #include "PlayerTank.h"
 
 using namespace std;
@@ -33,6 +37,7 @@ public:
         }
     }
 };
+
 
 class PlayerTank {
 public:
@@ -155,6 +160,8 @@ public:
         }
     }
 };
+
+
 class Bullet {
 public:
     int x, int y;
@@ -175,7 +182,7 @@ public:
         y += dy;
         rect.x = x;
         rect.y = y;
-        if (x < TILE_SIZE || x > SCREEN_WIDTH - TILE_SIZE || y < TILE_SIZE || Y > SCREEN_HEIGHT - TILE_SIZE){
+        if (x < TILE_SIZE || x > SCREEN_WIDTH - TILE_SIZE || y < TILE_SIZE || y > SCREEN_HEIGHT - TILE_SIZE){
             active = false;
         }
     }
@@ -189,7 +196,8 @@ public:
 };
 
 
-int main(int arge, char* argv[])
+
+int main(int argc, char* argv[])
 {
     Game game;
     if (game.running){
@@ -197,3 +205,4 @@ int main(int arge, char* argv[])
     }
     return 0;
 }
+#endif
