@@ -1,12 +1,10 @@
-#define GAME_H
-#ifndef GAME_H
-
 #define SDL_MAIN_HANDLED
+
 #include<iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
-#include "PlayerTank.h"
+#include<algorithm>
 
 using namespace std;
 
@@ -39,11 +37,46 @@ public:
 };
 
 
+class Bullet {
+public:
+    int x, y;
+    int dx, dy;
+    SDL_Rect rect;
+    bool active;
+
+    Bullet(int startX, int startY, int dirX, int dirY){
+        x = startX;
+        y = startY;
+        dx = dirX;
+        dy = dirY;
+        active = true;
+        rect = {x, y, 10, 10};
+    }
+    void move(){
+        x += dx;
+        y += dy;
+        rect.x = x;
+        rect.y = y;
+        if (x < TILE_SIZE || x > SCREEN_WIDTH - TILE_SIZE || y < TILE_SIZE || y > SCREEN_HEIGHT - TILE_SIZE){
+            active = false;
+        }
+    }
+    void render (SDL_Renderer* renderer){
+        if (active) {
+            SDL_SetRenderDrawColor (renderer, 255, 255, 255, 255);
+            SDL_RenderFillRect (renderer, &rect);
+        }
+    }
+};
+
+
+
 class PlayerTank {
 public:
     int x, y;
     int dirX, dirY;
     SDL_Rect rect;
+    vector<Bullet> bullets;
 
     PlayerTank (int startX, int startY){
         x = startX;
@@ -52,14 +85,14 @@ public:
         dirX = 0;
         dirY = -1;
     }
-    void move (int dx, int dy, const vector<Wall>& walls ){
+    void move (size_t dx, size_t dy, const vector<Wall>& walls ){
         int newX = x + dx;
         int newY = y + dy;
         this ->dirX = dx;
         this ->dirY = dy;
 
         SDL_Rect newRect = { newX, newY, TILE_SIZE, TILE_SIZE};
-        for (int i = 0; i < walls.size(); i++){
+        for (size_t i = 0; i < walls.size(); i++){
             if (walls[i].active && SDL_HasIntersection(&newRect, &walls[i].rect)){
                 return;
             }
@@ -72,9 +105,23 @@ public:
         }
     }
 
+    void shoot(){
+        bullets.push_back(Bullet(x + TILE_SIZE / 2 - 5, y + TILE_SIZE / 2 - 5,this -> dirX, this -> dirY));
+    }
+
+    void updateBullets(){
+        for (auto &bullet : bullets){
+            bullet.move();
+        }
+        bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](Bullet &b){return !b.active;}), bullets.end());
+    }
+
     void render (SDL_Renderer* renderer){
         SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
         SDL_RenderFillRect(renderer, &rect);
+        for (auto &bullet : bullets){
+            bullet.render(renderer);
+        }
     }
 };
 
@@ -88,7 +135,7 @@ public:
     PlayerTank player;
 
     // function
-    Game(){
+    Game(): player(((MAP_WIDTH - 1)/2)*TILE_SIZE, (MAP_HEIGHT-2)*TILE_SIZE){
         running = true;
         if (SDL_Init(SDL_INIT_VIDEO)< 0){
             cerr << "SDL could not initialize! SDL_Error:"<< SDL_GetError() <<endl;
@@ -99,6 +146,7 @@ public:
             cerr << "Window could not be created! SDL_Error:" << SDL_GetError() << endl;
             running = false ;
         }
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
         if (!renderer){
             cerr << "Renderer could not be created! SDL_Error:" << SDL_GetError() <<endl;
             running = false;
@@ -117,7 +165,7 @@ public:
                 SDL_RenderFillRect(renderer, &tile);
             }
         }
-        for (int i = 0; i < walls.size(); i++){
+        for (size_t i = 0; i < walls.size(); i++){
             walls[i].render(renderer);
         }
         player.render(renderer);
@@ -127,6 +175,7 @@ public:
     void run() {
         while (running){
             handleEvents();
+            update();
             render();
             SDL_Delay(16);
         }
@@ -155,46 +204,26 @@ public:
                     case SDLK_DOWN: player.move(0, 5, walls);break;
                     case SDLK_LEFT: player.move(-5, 0, walls);break;
                     case SDLK_RIGHT: player.move(5, 0, walls);break;
+                    case SDLK_SPACE: player.shoot(); break;
+                }
+            }
+        }
+    }
+
+    void update (){
+        player.updateBullets ();
+
+        for (auto& bullet : player.bullets){
+            for (auto& wall : walls){
+                if (wall.active && SDL_HasIntersection(&bullet.rect, &wall.rect)){
+                    wall.active = false;
+                    bullet.active = false;
+                    break;
                 }
             }
         }
     }
 };
-
-
-class Bullet {
-public:
-    int x, int y;
-    int dx, int dy;
-    SDL_Rect rect;
-    bool active;
-
-    Bullet(int startX, int startY, int dirX, int dirY){
-        x = startX;
-        y = startY;
-        dx = dirX;
-        dy = dirY;
-        active = true;
-        rect = {x, y, 10, 10};
-    }
-    void move (){
-        x += dx;
-        y += dy;
-        rect.x = x;
-        rect.y = y;
-        if (x < TILE_SIZE || x > SCREEN_WIDTH - TILE_SIZE || y < TILE_SIZE || y > SCREEN_HEIGHT - TILE_SIZE){
-            active = false;
-        }
-    }
-    void render (SDL_Renderer* renderer){
-        if (active){
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-            SDL_RenderFillRect(renderer, &rect);
-        }
-    }
-
-};
-
 
 
 int main(int argc, char* argv[])
@@ -205,4 +234,4 @@ int main(int argc, char* argv[])
     }
     return 0;
 }
-#endif
+
