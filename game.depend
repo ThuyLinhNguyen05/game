@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1744401509 source:c:\users\admin\downloads\game\main.cpp
+1744414884 source:c:\users\admin\downloads\game\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
+	<algorithm>
 
 1739236987 c:\users\admin\downloads\sdl2-devel-2.28.5-mingw\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
