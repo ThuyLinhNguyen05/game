@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1744454251 source:c:\users\admin\downloads\game\main.cpp
+1744455193 source:c:\users\admin\downloads\game\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -404,4 +404,6 @@
 	"SDL_version.h"
 	"begin_code.h"
 	"close_code.h"
+
+1744482585 source:c:\users\admin\downloads\game\assets.c
 

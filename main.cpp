@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <vector>
 #include<algorithm>
+#include <SDL_mixer.h>
 
 using namespace std;
 
@@ -158,12 +159,12 @@ public:
             this->dirY = 5;
         }
         else if (r == 2){
-            this->dirX = 0;
-            this->dirY = -5;
+            this->dirX = -5;
+            this->dirY = 0;
         }
         else if (r == 3){
-            this->dirX = 0;
-            this->dirY = 5;
+            this->dirX = 5;
+            this->dirY = 0;
         }
         int newX = x + this->dirX;
         int newY = y + this->dirY;
@@ -374,12 +375,34 @@ public:
 };
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]){
     Game game;
     if (game.running){
         game.run();
     }
+
+
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
+    // 2. Load nhạc
+    Mix_Music* nhacNen = Mix_LoadMUS("assets/nhacnen.mp3");
+    if (!nhacNen) {
+        std::cerr << "Lỗi load nhạc: " << Mix_GetError() << std::endl;
+        return -1;
+    }
+
+    // 3. Phát nhạc (lặp vô hạn)
+    Mix_PlayMusic(nhacNen, -1);
+    std::cout << "Đang phát nhạc... Nhấn Enter để dừng" << std::endl;
+    std::cin.get(); // Dừng chương trình khi nhấn Enter
+
+    // 4. Dọn dẹp
+    Mix_FreeMusic(nhacNen);
+    Mix_CloseAudio();
+    SDL_Quit();
+
+
     return 0;
 }
 
