@@ -41,11 +41,8 @@
 			<Add directory="C:/Users/ADMIN/Downloads/SDL2_image-devel-2.8.2-mingw (1)/SDL2_image-2.8.2/x86_64-w64-mingw32/lib/libSDL2_image.dll.a" />
 			<Add directory="C:/Users/ADMIN/Downloads/SDL2-devel-2.28.5-mingw/SDL2-2.28.5/x86_64-w64-mingw32/lib/libSDL2.dll.a" />
 		</Linker>
-		<Unit filename="../Download (1).mp3" />
-		<Unit filename="assets.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="nhacnen.mp3" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
