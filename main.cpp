@@ -11,8 +11,6 @@
 
 
 
-
-
 using namespace std;
 
 const int SCREEN_WIDTH = 800;
@@ -297,7 +295,12 @@ public:
     void shoot(){
         if (--shootDelay > 0) return;
         shootDelay = 5;
+        // Thêm viên đạn của kẻ địch
         bullets.push_back(Bullet(x + TILE_SIZE / 2 - 5, y + TILE_SIZE / 2 - 5, this->dirX, this->dirY));
+        // Phát âm thanh bắn khi kẻ địch bắn
+    if (shootSound) {
+        Mix_PlayChannel(-1, shootSound, 0);  // Phát âm thanh bắn đạn
+    }
     }
 
     void updateBullets(){
@@ -331,6 +334,7 @@ public:
     bool inMenu;
 
     Mix_Music* backgroundMusic = nullptr;
+    Mix_Chunk* shootSound = nullptr; //khai báo âm thanh bắn
 
 
     // function
@@ -360,8 +364,8 @@ public:
         running = false;
     }
 
-    // Load nhạc nền
-    backgroundMusic = Mix_LoadMUS("background.wav");
+        // Load nhạc nền
+    backgroundMusic = Mix_LoadMUS("background.mp3");
     if (!backgroundMusic) {
         cerr << "Failed to load background music! Mix_Error: " << Mix_GetError() << endl;
     }
@@ -369,6 +373,19 @@ public:
         // Phát nhạc nền (lặp vô hạn)
         Mix_PlayMusic(backgroundMusic, -1);
     }
+    shootSound = Mix_LoadWAV("C:\\Users\\ADMIN\\Downloads\\game\\shoot.wav");
+        if (!shootSound) {
+            cerr << "Failed to load shoot sound! Mix_Error: " << Mix_GetError() << endl;
+        }
+
+
+
+        // Load âm thanh bắn
+    shootSound = Mix_LoadWAV("shoot.wav");
+    if (!shootSound) {
+        cerr << "Failed to load shoot sound! Mix_Error: " << Mix_GetError() << endl;
+    }
+
     }
 
 
@@ -406,7 +423,19 @@ public:
         // Giải phóng nhạc nền
     if (backgroundMusic) {
         Mix_FreeMusic(backgroundMusic);
+        backgroundMusic = nullptr;
     }
+        // Giải phóng âm thanh bắn đạn
+    if (shootSound) {
+        Mix_FreeChunk(shootSound);
+        shootSound = nullptr;
+    }
+        // Giải phóng âm thanh bắn của người chơi
+    if (shootSound) {
+        Mix_FreeChunk(shootSound);
+        shootSound = nullptr;
+    }
+
     Mix_CloseAudio();
 
         SDL_DestroyRenderer(renderer);
@@ -432,7 +461,9 @@ public:
                     case SDLK_DOWN: player.move(0, 5, walls);break;
                     case SDLK_LEFT: player.move(-5, 0, walls);break;
                     case SDLK_RIGHT: player.move(5, 0, walls);break;
-                    case SDLK_SPACE: player.shoot(); break;
+                    case SDLK_SPACE: player.shoot();
+                    if (shootSound) Mix_PlayChannel(-1, shootSound, 0); // Phát âm thanh bắn đạn
+                     break;
                 }
             }
         }
