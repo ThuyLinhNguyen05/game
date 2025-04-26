@@ -10,7 +10,6 @@
 
 
 
-
 using namespace std;
 
 const int SCREEN_WIDTH = 800;
@@ -18,6 +17,9 @@ const int SCREEN_HEIGHT = 600;
 const int TILE_SIZE = 40;
 const int MAP_WIDTH = SCREEN_WIDTH / TILE_SIZE;
 const int MAP_HEIGHT = SCREEN_HEIGHT / TILE_SIZE;
+bool gameOver = false;
+bool playerWon = false;
+void renderGameOver(SDL_Renderer* renderer);
 
 class Button {
 public:
@@ -234,6 +236,16 @@ public:
             bullet.render(renderer);
         }
     }
+
+    // Thêm phương thức kiểm tra sự sống
+    bool isAlive() const {
+        return health > 0;  // Giả sử có thuộc tính health
+
+    }
+
+private:
+    int health;
+
 };
 
 class EnemyTank {
@@ -244,8 +256,9 @@ public:
     SDL_Rect rect;
     bool active;
     vector<Bullet> bullets;
+    Mix_Chunk* shootSound;
 
-    EnemyTank(int startX, int startY){
+    EnemyTank(int startX, int startY, Mix_Chunk* sound){
         moveDelay = 15;
         shootDelay = 5;
         x = startX;
@@ -254,6 +267,7 @@ public:
         dirX = 0;
         dirY = 1;
         active = true;
+        shootSound = sound; // Lưu âm thanh vào biến shootSound
     }
 
     void move (const vector<Wall>& walls){
@@ -298,9 +312,9 @@ public:
         // Thêm viên đạn của kẻ địch
         bullets.push_back(Bullet(x + TILE_SIZE / 2 - 5, y + TILE_SIZE / 2 - 5, this->dirX, this->dirY));
         // Phát âm thanh bắn khi kẻ địch bắn
-    if (shootSound) {
-        Mix_PlayChannel(-1, shootSound, 0);  // Phát âm thanh bắn đạn
-    }
+        if (shootSound) {
+            Mix_PlayChannel(-1, shootSound, 0);  // Phát âm thanh bắn đạn
+        }
     }
 
     void updateBullets(){
@@ -319,6 +333,11 @@ public:
     }
 };
 
+enum GameState {
+    PLAYING,
+    WIN,
+    LOSE
+};
 
 class Game {
 public:
@@ -329,6 +348,9 @@ public:
     PlayerTank player;
     int enemyNumber = 3;
     vector<EnemyTank> enemies;
+
+    bool gameOver = false;
+    bool playerWon = false;
 
     Menu menu;
     bool inMenu;
@@ -373,11 +395,6 @@ public:
         // Phát nhạc nền (lặp vô hạn)
         Mix_PlayMusic(backgroundMusic, -1);
     }
-    shootSound = Mix_LoadWAV("C:\\Users\\ADMIN\\Downloads\\game\\shoot.wav");
-        if (!shootSound) {
-            cerr << "Failed to load shoot sound! Mix_Error: " << Mix_GetError() << endl;
-        }
-
 
 
         // Load âm thanh bắn
@@ -417,6 +434,22 @@ public:
             update();
             render();
             SDL_Delay(16);
+
+        // Kiểm tra điều kiện kẻ địch chết hết
+        if (enemies.empty()) {
+            gameOver = true;
+            playerWon = true;
+            running = false; // thoát game
+    }
+
+        // Kiểm tra điều kiện người chơi chết
+        if (!player.isAlive()) {
+            gameOver = true;
+            playerWon = false;
+            running = false; // thoát game
+    }
+
+
         }
     }
     ~Game() {
@@ -514,12 +547,16 @@ public:
 
         if (enemies.empty()){
             running = false;
+            gameOver = true;
+            playerWon = true;
         }
         for (auto& enemy : enemies){
             for (auto& bullet : enemy.bullets){
 
                 if (SDL_HasIntersection(&bullet.rect, &player.rect)){
                     running = false;
+                    gameOver = true;
+                    playerWon = false;
                     return;
                 }
             }
@@ -541,10 +578,75 @@ public:
                     }
                 }
             }
-            enemies.push_back(EnemyTank(ex, ey));
+            enemies.push_back(EnemyTank(ex, ey, shootSound));
         }
     }
+
+    void renderGameOver(SDL_Renderer* renderer) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    std::string message = playerWon ? "YOU WIN" : "YOU LOSE";
+    SDL_Color textColor = {255, 255, 255, 255};
+
+    TTF_Font* font = TTF_OpenFont("WinkyRough-VariableFont_wght.ttf", 72);
+    if (!font) {
+        std::cerr << "Failed to load font! TTF_Error: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    SDL_Surface* surface = TTF_RenderText_Solid(font, message.c_str(), textColor);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect textRect = {
+        SCREEN_WIDTH / 2 - surface->w / 2,
+        SCREEN_HEIGHT / 2 - surface->h / 2,
+        surface->w,
+        surface->h
+    };
+
+    SDL_RenderCopy(renderer, texture, NULL, &textRect);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+    TTF_CloseFont(font);
+
+    SDL_RenderPresent(renderer);
+    SDL_Delay(3000);
+}
+
 };
+
+void renderGameOver(SDL_Renderer* renderer) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    TTF_Font* font = TTF_OpenFont("assets/arial.ttf", 48);
+    if (!font) {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    SDL_Color color = {255, 255, 255, 255};
+    std::string message = playerWon ? "YOU WIN" : "YOU LOSE";
+
+    SDL_Surface* surface = TTF_RenderText_Solid(font, message.c_str(), color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    SDL_Rect dstRect;
+    dstRect.x = (SCREEN_WIDTH - surface->w) / 2;
+    dstRect.y = (SCREEN_HEIGHT - surface->h) / 2;
+    dstRect.w = surface->w;
+    dstRect.h = surface->h;
+
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);
+    SDL_RenderPresent(renderer);
+
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+    TTF_CloseFont(font);
+}
+
+
+
 
 
 int main(int argc, char* argv[]){
@@ -576,12 +678,18 @@ int main(int argc, char* argv[]){
 
     }
 
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     Game game;
     if (game.running){
         game.run();
+        // Sau khi game dừng, kiểm tra nếu có kết thúc game
+    if (gameOver) {
+        renderGameOver(game.renderer);  // <- gọi hàm hiển thị YOU WIN / LOSE
+        SDL_Delay(3000); // dừng lại 3 giây để người chơi xem kết quả
+        }
     }
 
     TTF_Quit();
