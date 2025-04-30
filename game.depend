@@ -1,12 +1,6 @@
 # depslib dependency file v1.0
-1745565768 source:c:\users\admin\downloads\game\main.cpp
-	<iostream>
-	<SDL.h>
-	<SDL_image.h>
-	<vector>
-	<algorithm>
-	<SDL_ttf.h>
-	<SDL_mixer.h>
+1745989520 source:c:\users\admin\downloads\game\main.cpp
+	"app.h"
 
 1739236987 c:\users\admin\downloads\sdl2-devel-2.28.5-mingw\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -410,4 +404,197 @@
 1744555774 source:c:\users\admin\downloads\game\assets.c
 
 1744607181 source:c:\users\admin\downloads\music.c
+
+1745856989 source:c:\users\admin\downloads\game\map_data.cpp
+	"map_data.h"
+
+1745856989 c:\users\admin\downloads\game\map_data.h
+
+1745856989 source:c:\users\admin\downloads\game\texturemanager.cpp
+	"TextureManager.h"
+
+1745868354 c:\users\admin\downloads\game\texturemanager.h
+	<SDL.h>
+	<SDL_image.h>
+	<string>
+
+1745857512 source:c:\users\admin\downloads\game\texture.cpp
+	"Texture.h"
+	<SDL_image.h>
+	<iostream>
+
+1745856989 c:\users\admin\downloads\game\texture.h
+	<SDL.h>
+	<string>
+
+1745989520 c:\users\admin\downloads\game\app.h
+	"appstate.h"
+
+1745989520 c:\users\admin\downloads\game\appstate.h
+	<SDL_events.h>
+	<string>
+
+1745989520 source:c:\users\admin\downloads\game\brick.cpp
+	"brick.h"
+	<iostream>
+
+1745989520 c:\users\admin\downloads\game\brick.h
+	"object.h"
+
+1745989520 c:\users\admin\downloads\game\object.h
+	"engine.h"
+
+1745989520 c:\users\admin\downloads\game\engine.h
+	"renderer.h"
+	"spriteconfig.h"
+
+1745989520 c:\users\admin\downloads\game\renderer.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
+
+1745989520 c:\users\admin\downloads\game\spriteconfig.h
+	"type.h"
+	<map>
+	<SDL.h>
+
+1745989903 c:\users\admin\downloads\game\type.h
+
+1745989520 source:c:\users\admin\downloads\game\eagle.cpp
+	"eagle.h"
+
+1745989520 c:\users\admin\downloads\game\eagle.h
+	"object.h"
+
+1745989520 source:c:\users\admin\downloads\game\engine.cpp
+	"engine.h"
+
+1745989520 source:c:\users\admin\downloads\game\object.cpp
+	"object.h"
+	<SDL.h>
+	<iostream>
+	<algorithm>
+
+1745989521 source:c:\users\admin\downloads\game\spriteconfig.cpp
+	"spriteconfig.h"
+
+1745991812 source:c:\users\admin\downloads\game\app.cpp
+	"app.h"
+	"appconfig.h"
+	"engine.h"
+	"game.h"
+	"menu.h"
+	<ctime>
+	<iostream>
+	<stdlib.h>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+
+1745991812 c:\users\admin\downloads\game\appconfig.h
+	"player.h"
+	<iostream>
+	<SDL.h>
+	<vector>
+
+1745989521 c:\users\admin\downloads\game\player.h
+	"tank.h"
+
+1745989520 c:\users\admin\downloads\game\tank.h
+	"object.h"
+	"bullet.h"
+	"type.h"
+	<vector>
+
+1745989520 c:\users\admin\downloads\game\bullet.h
+	"object.h"
+	<SDL.h>
+
+1745989520 c:\users\admin\downloads\game\game.h
+	"appstate.h"
+	"object.h"
+	"player.h"
+	"enemy.h"
+	"bullet.h"
+	"brick.h"
+	"eagle.h"
+	<vector>
+	<string>
+
+1745989520 c:\users\admin\downloads\game\enemy.h
+	"tank.h"
+
+1745989520 c:\users\admin\downloads\game\menu.h
+	"appstate.h"
+	"player.h"
+	<vector>
+	<string>
+
+1745996189 source:c:\users\admin\downloads\game\appconfig.cpp
+	"appconfig.h"
+
+1745989520 source:c:\users\admin\downloads\game\bullet.cpp
+	"bullet.h"
+	"appconfig.h"
+
+1745989521 source:c:\users\admin\downloads\game\menu.cpp
+	"menu.h"
+	"engine.h"
+	"renderer.h"
+	"appconfig.h"
+	"type.h"
+	"game.h"
+	<iostream>
+
+1745989520 source:c:\users\admin\downloads\game\player.cpp
+	"player.h"
+	"appconfig.h"
+	<SDL.h>
+	<iostream>
+
+1745989520 source:c:\users\admin\downloads\game\renderer.cpp
+	"renderer.h"
+	"appconfig.h"
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+
+1745989520 source:c:\users\admin\downloads\game\scores.cpp
+	"scores.h"
+	"engine.h"
+	"appconfig.h"
+	"game.h"
+	"menu.h"
+
+1745989520 c:\users\admin\downloads\game\scores.h
+	"appstate.h"
+	"player.h"
+	<vector>
+	<string>
+
+1745989520 source:c:\users\admin\downloads\game\tank.cpp
+	"tank.h"
+	"appconfig.h"
+	<algorithm>
+
+1745992135 source:c:\users\admin\downloads\game\enemy.cpp
+	"enemy.h"
+	"appconfig.h"
+	<stdlib.h>
+	<ctime>
+	<iostream>
+
+1745992190 source:c:\users\admin\downloads\game\game.cpp
+	"game.h"
+	"engine.h"
+	"appconfig.h"
+	"menu.h"
+	"scores.h"
+	<SDL.h>
+	<stdlib.h>
+	<ctime>
+	<fstream>
+	<algorithm>
+	<iostream>
+	<cmath>
 

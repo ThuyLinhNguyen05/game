@@ -41,9 +41,41 @@
 			<Add directory="C:/Users/ADMIN/Downloads/SDL2_image-devel-2.8.2-mingw (1)/SDL2_image-2.8.2/x86_64-w64-mingw32/lib/libSDL2_image.dll.a" />
 			<Add directory="C:/Users/ADMIN/Downloads/SDL2-devel-2.28.5-mingw/SDL2-2.28.5/x86_64-w64-mingw32/lib/libSDL2.dll.a" />
 		</Linker>
+		<Unit filename="app.cpp" />
+		<Unit filename="app.h" />
+		<Unit filename="appconfig.cpp" />
+		<Unit filename="appconfig.h" />
+		<Unit filename="appstate.h" />
 		<Unit filename="background.mp3" />
+		<Unit filename="brick.cpp" />
+		<Unit filename="brick.h" />
+		<Unit filename="bullet.cpp" />
+		<Unit filename="bullet.h" />
+		<Unit filename="eagle.cpp" />
+		<Unit filename="eagle.h" />
+		<Unit filename="enemy.cpp" />
+		<Unit filename="enemy.h" />
+		<Unit filename="engine.cpp" />
+		<Unit filename="engine.h" />
+		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="object.cpp" />
+		<Unit filename="object.h" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.h" />
+		<Unit filename="renderer.cpp" />
+		<Unit filename="renderer.h" />
+		<Unit filename="scores.cpp" />
+		<Unit filename="scores.h" />
 		<Unit filename="shoot.wav" />
+		<Unit filename="spriteconfig.cpp" />
+		<Unit filename="spriteconfig.h" />
+		<Unit filename="tank.cpp" />
+		<Unit filename="tank.h" />
+		<Unit filename="type.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
