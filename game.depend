@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1745989520 source:c:\users\admin\downloads\game\main.cpp
+1746026613 source:c:\users\admin\downloads\game\main.cpp
 	"app.h"
+	<iostream>
 
 1739236987 c:\users\admin\downloads\sdl2-devel-2.28.5-mingw\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -469,7 +470,7 @@
 1745989520 source:c:\users\admin\downloads\game\engine.cpp
 	"engine.h"
 
-1745989520 source:c:\users\admin\downloads\game\object.cpp
+1746004905 source:c:\users\admin\downloads\game\object.cpp
 	"object.h"
 	<SDL.h>
 	<iostream>
@@ -478,7 +479,7 @@
 1745989521 source:c:\users\admin\downloads\game\spriteconfig.cpp
 	"spriteconfig.h"
 
-1745991812 source:c:\users\admin\downloads\game\app.cpp
+1746004905 source:c:\users\admin\downloads\game\app.cpp
 	"app.h"
 	"appconfig.h"
 	"engine.h"
@@ -537,7 +538,7 @@
 	"bullet.h"
 	"appconfig.h"
 
-1745989521 source:c:\users\admin\downloads\game\menu.cpp
+1745997756 source:c:\users\admin\downloads\game\menu.cpp
 	"menu.h"
 	"engine.h"
 	"renderer.h"
@@ -572,12 +573,12 @@
 	<vector>
 	<string>
 
-1745989520 source:c:\users\admin\downloads\game\tank.cpp
+1746004905 source:c:\users\admin\downloads\game\tank.cpp
 	"tank.h"
 	"appconfig.h"
 	<algorithm>
 
-1745992135 source:c:\users\admin\downloads\game\enemy.cpp
+1745997756 source:c:\users\admin\downloads\game\enemy.cpp
 	"enemy.h"
 	"appconfig.h"
 	<stdlib.h>
@@ -597,4 +598,12 @@
 	<algorithm>
 	<iostream>
 	<cmath>
+
+1746026143 source:c:\users\admin\downloads\game\background.cpp
+	"background.h"
+	<iostream>
+
+1746026438 c:\users\admin\downloads\game\background.h
+	<SDL_mixer.h>
+	<string>
 

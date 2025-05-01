@@ -46,6 +46,8 @@
 		<Unit filename="appconfig.cpp" />
 		<Unit filename="appconfig.h" />
 		<Unit filename="appstate.h" />
+		<Unit filename="background.cpp" />
+		<Unit filename="background.h" />
 		<Unit filename="background.mp3" />
 		<Unit filename="brick.cpp" />
 		<Unit filename="brick.h" />
