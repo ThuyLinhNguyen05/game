@@ -57,6 +57,7 @@ void App::run()
             std::cerr << "Failed to load shoot sound.\n";
         }
 
+
         // Khởi tạo engine
         Engine& engine = Engine::getEngine();
         engine.initModules();
@@ -155,4 +156,5 @@ void App::eventProces()
         shootSound.play();  // Phát âm thanh bắn
     }
 }
+
 

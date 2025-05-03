@@ -48,7 +48,6 @@
 		<Unit filename="appstate.h" />
 		<Unit filename="background.cpp" />
 		<Unit filename="background.h" />
-		<Unit filename="background.mp3" />
 		<Unit filename="brick.cpp" />
 		<Unit filename="brick.h" />
 		<Unit filename="bullet.cpp" />
@@ -72,6 +71,8 @@
 		<Unit filename="renderer.h" />
 		<Unit filename="scores.cpp" />
 		<Unit filename="scores.h" />
+		<Unit filename="shoot.cpp" />
+		<Unit filename="shoot.h" />
 		<Unit filename="shoot.wav" />
 		<Unit filename="spriteconfig.cpp" />
 		<Unit filename="spriteconfig.h" />

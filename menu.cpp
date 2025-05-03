@@ -4,6 +4,7 @@
 #include "appconfig.h"
 #include "type.h"
 #include "game.h"
+#include "button.h"
 
 #include <iostream>
 
@@ -22,12 +23,21 @@ Menu::Menu()
     m_tank_pointer->clearFlag(TSF_LIFE);
     m_tank_pointer->clearFlag(TSF_SHIELD);
     m_tank_pointer->setFlag(TSF_MENU);
+
+    // Tạo nút PLAY
+    m_play_button = new Button(180, 300, 200, 60, "PLAY",
+                               {0, 200, 0, 255},
+                               Engine::getEngine().getRenderer()->getRenderer(),
+                               Engine::getEngine().getRenderer()->getFont());
+
     m_finished = false;
 }
 
 Menu::~Menu()
 {
     delete m_tank_pointer;
+
+    delete m_play_button;
 }
 
 void Menu::draw()
@@ -53,6 +63,7 @@ void Menu::draw()
     }
 
     m_tank_pointer->draw();
+    m_play_button->render(renderer->getRenderer());
 
     renderer->flush();
 }
@@ -94,6 +105,16 @@ void Menu::eventProcess(SDL_Event *ev)
             m_finished = true;
         }
     }
+
+    if(ev->type == SDL_MOUSEBUTTONDOWN && ev->button.button == SDL_BUTTON_LEFT) {
+        int x = ev->button.x;
+        int y = ev->button.y;
+        if (m_play_button->isInside(x, y)) {
+            m_menu_index = 0; // tương ứng "1 Player"
+            m_finished = true;
+        }
+    }
+
 }
 
 bool Menu::finished() const

@@ -128,3 +128,11 @@ void Renderer::drawRect(const SDL_Rect *rect, SDL_Color rect_color, bool fill)
     else
         SDL_RenderDrawRects(m_renderer, rect, 1);
 }
+
+SDL_Renderer* Renderer::getRenderer() {
+    return m_renderer;
+}
+
+TTF_Font* Renderer::getFont() {
+    return m_font1; // Hoặc chọn theo nhu cầu: m_font2, m_font3
+}

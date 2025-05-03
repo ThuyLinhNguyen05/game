@@ -20,6 +20,9 @@ public:
     void drawText(const SDL_Point* start, std::string text, SDL_Color text_color, int font_size = 1);
     void drawRect(const SDL_Rect* rect, SDL_Color rect_color, bool fill = false);
 
+    SDL_Renderer* getRenderer(); // lấy renderer gốc
+    TTF_Font* getFont();         // lấy font đang dùng
+
 private:
     SDL_Renderer* m_renderer;
     SDL_Texture* m_texture;

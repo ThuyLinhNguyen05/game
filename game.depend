@@ -451,7 +451,7 @@
 	"renderer.h"
 	"spriteconfig.h"
 
-1745989520 c:\users\admin\downloads\game\renderer.h
+1746301189 c:\users\admin\downloads\game\renderer.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<string>
@@ -481,7 +481,7 @@
 1745989521 source:c:\users\admin\downloads\game\spriteconfig.cpp
 	"spriteconfig.h"
 
-1746271883 source:c:\users\admin\downloads\game\app.cpp
+1746300541 source:c:\users\admin\downloads\game\app.cpp
 	"app.h"
 	"appconfig.h"
 	"engine.h"
@@ -527,9 +527,10 @@
 1745989520 c:\users\admin\downloads\game\enemy.h
 	"tank.h"
 
-1745989520 c:\users\admin\downloads\game\menu.h
+1746300734 c:\users\admin\downloads\game\menu.h
 	"appstate.h"
 	"player.h"
+	"button.h"
 	<vector>
 	<string>
 
@@ -540,13 +541,14 @@
 	"bullet.h"
 	"appconfig.h"
 
-1745997756 source:c:\users\admin\downloads\game\menu.cpp
+1746300541 source:c:\users\admin\downloads\game\menu.cpp
 	"menu.h"
 	"engine.h"
 	"renderer.h"
 	"appconfig.h"
 	"type.h"
 	"game.h"
+	"button.h"
 	<iostream>
 
 1745989520 source:c:\users\admin\downloads\game\player.cpp
@@ -555,7 +557,7 @@
 	<SDL.h>
 	<iostream>
 
-1745989520 source:c:\users\admin\downloads\game\renderer.cpp
+1746301189 source:c:\users\admin\downloads\game\renderer.cpp
 	"renderer.h"
 	"appconfig.h"
 	<SDL.h>
@@ -616,4 +618,12 @@
 1746270796 source:c:\users\admin\downloads\game\shoot.cpp
 	"shoot.h"
 	<iostream>
+
+1746300541 source:c:\users\admin\downloads\game\button.cpp
+	"button.h"
+
+1746300541 c:\users\admin\downloads\game\button.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
 

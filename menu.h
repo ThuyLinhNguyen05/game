@@ -2,6 +2,7 @@
 #define MENU_H
 #include "appstate.h"
 #include "player.h"
+#include "button.h"
 
 #include <vector>
 #include <string>
@@ -23,6 +24,7 @@ private:
     int m_menu_index;
 
     Player* m_tank_pointer;
+    Button* m_play_button;
 
     bool m_finished;
 };
