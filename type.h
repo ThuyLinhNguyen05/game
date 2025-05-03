@@ -19,15 +19,6 @@ enum SpriteType //Kiểu dữ liệu đặc biệt định nghĩa các giá tr�
     ST_BUSH,
     ST_ICE,
 
-    /*ST_BONUS_GRENADE, // Thêm bonus
-    ST_BONUS_HELMET,
-    ST_BONUS_CLOCK,
-    ST_BONUS_SHOVEL,
-    ST_BONUS_TANK,
-    ST_BONUS_STAR,
-    ST_BONUS_GUN,
-    ST_BONUS_BOAT,*/
-
     ST_SHIELD,
     ST_CREATE,
     ST_DESTROY_TANK,

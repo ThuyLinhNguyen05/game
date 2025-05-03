@@ -11,7 +11,6 @@ SDL_Rect AppConfig::tile_rect = {0, 0, 16, 16 };
 const SDL_Scancode AppConfig::P1_FIRE_KEY = SDL_SCANCODE_SPACE;
 const SDL_Scancode AppConfig::P2_FIRE_KEY = SDL_SCANCODE_RETURN;
 
-
 vector<SDL_Point> AppConfig::player_starting_point =
 []{
     vector<SDL_Point> v;
@@ -51,3 +50,4 @@ double AppConfig::game_over_entry_speed = 0.13;
 double AppConfig::tank_default_speed = 0.08;
 double AppConfig::bullet_default_speed = 0.23;
 bool AppConfig::show_enemy_target = false;
+

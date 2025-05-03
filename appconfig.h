@@ -42,4 +42,4 @@ public:
     static const SDL_Scancode P1_FIRE_KEY;
     static const SDL_Scancode P2_FIRE_KEY;
 };
-#endif //APPCONFIG
+#endif //APPCONFIG_H

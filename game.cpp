@@ -3,7 +3,6 @@
 #include "appconfig.h"
 #include "menu.h"
 #include "scores.h"
-
 #include <SDL.h>
 #include <stdlib.h>
 #include <ctime>
@@ -91,7 +90,6 @@ void Game::draw()
         for(auto player : m_players) player->draw();
         for(auto enemy : m_enemies) enemy->draw();
         for(auto bush : m_bushes) bush->draw();
-        //for(auto bonus : m_bonuses) bonus->draw();
         m_eagle->draw();
 
         if(m_game_over)
@@ -460,9 +458,6 @@ void Game::clearLevel()
 
     for(auto player : m_players) delete player;
     m_players.clear();
-
-    //for(auto bonus : m_bonuses) delete bonus;
-    //m_bonuses.clear();
 
     for(auto row : m_level)
     {
@@ -848,8 +843,7 @@ void Game::generateEnemy()
     else if(p < c) e->lives_count = 3;
     else e->lives_count = 4;
 
-   /* p = static_cast<float>(rand()) / RAND_MAX;
-    if(p < 0.12) e->setFlag(TSF_BONUS); */
+    p = static_cast<float>(rand()) / RAND_MAX;
 
     m_enemies.push_back(e);
 }

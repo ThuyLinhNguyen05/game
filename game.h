@@ -7,7 +7,6 @@
 #include "bullet.h"
 #include "brick.h"
 #include "eagle.h"
-//#include "bonus.h"
 #include <vector>
 #include <string>
 
@@ -32,11 +31,9 @@ public:
 
     void eventProcess(SDL_Event* ev);
 
-    AppState* nextState();
-
-private:
-
     void loadLevel(std::string path);
+
+    AppState* nextState();
 
     void clearLevel();
 

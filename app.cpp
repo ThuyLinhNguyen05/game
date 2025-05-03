@@ -11,45 +11,60 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#define VERSION "1.0.0"
-
 App::App()
 {
-    m_window = nullptr; // Khởi tạo m_window là con trỏ không trỏ đến đâu cả
+    m_window = nullptr; // khởi tại m_window là con trỏ không troe đến đâu cả
+    is_shooting = false;  // Khởi tạo is_shooting là false
+
 }
 
 App::~App()
 {
-    if(m_app_state != nullptr)
-        delete m_app_state; // Giải phóng bộ nhớ của m_app_state nếu nó không phải nullptr
+    if (m_app_state != nullptr)
+        delete m_app_state; // giải phóng bộ nhớ của m_app_state nếu nó không phải nullptr
 }
-
 void App::run()
 {
     is_running = true;
 
-
-    //Khởi tạo SDL và các thư viện
+    // Khởi tạo SDL và các thư viện
     if(SDL_Init(SDL_INIT_VIDEO) == 0)
     {
+
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+            std::cerr << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
+            return;
+        }
+
         m_window = SDL_CreateWindow("TANKS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                    AppConfig::windows_rect.w, AppConfig::windows_rect.h, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-
+                                  AppConfig::windows_rect.w, AppConfig::windows_rect.h,
+                                  SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if(m_window == nullptr) return;
-
         if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) return;
         if(TTF_Init() == -1) return;
 
-        srand(time(NULL)); // Khởi tạo engine
+        srand(time(NULL)); //Khởi tạo trình tạo số ngẫu nhiên giả
 
+        if (!bg_music.load("C:\\Users\\ADMIN\\Downloads\\game\\bin\\Debug\\background.mp3")) {
+            std::cerr << "Failed to load background music.\n";
+        }
+        else
+        {
+            bg_music.play();
+        }
+
+        if (!shootSound.load("C:\\Users\\ADMIN\\Downloads\\game\\bin\\Debug\\shoot.wav")) {
+            std::cerr << "Failed to load shoot sound.\n";
+        }
+
+        // Khởi tạo engine
         Engine& engine = Engine::getEngine();
         engine.initModules();
         engine.getRenderer()->loadTexture(m_window);
         engine.getRenderer()->loadFont();
 
-        // khởi tạo trạng thái ban đầu
+        // Khởi tạo trạng thái ban đầu
         m_app_state = new Menu;
-
         double FPS;
         Uint32 time1, time2, dt, fps_time = 0, fps_count = 0, delay = 15;
         time1 = SDL_GetTicks();
@@ -93,6 +108,8 @@ void App::run()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
+    Mix_CloseAudio();
+    Mix_Quit();
 }
 
 void App::eventProces()
@@ -106,7 +123,6 @@ void App::eventProces()
         }
         else if(event.type == SDL_WINDOWEVENT)
         {
-            // Cập nhật lại kích thước cửa số khi người dùng thay đổi kích thước
             if(event.window.event == SDL_WINDOWEVENT_RESIZED ||
                event.window.event == SDL_WINDOWEVENT_MAXIMIZED ||
                event.window.event == SDL_WINDOWEVENT_RESTORED ||
@@ -120,6 +136,23 @@ void App::eventProces()
             }
         }
 
-        m_app_state->eventProcess(&event); //truyền sự kiện cho trạng thái hiện tại xử lý
+        // Kiểm tra sự kiện khi người chơi bắn
+        if (event.type == SDL_KEYDOWN) {
+            if (event.key.keysym.sym == SDLK_SPACE) {  // Kiểm tra nếu phím Space được nhấn
+                is_shooting = true;  // Cập nhật trạng thái bắn
+            }
+        }
+        else if (event.type == SDL_KEYUP) {
+            if (event.key.keysym.sym == SDLK_SPACE) {  // Kiểm tra nếu phím Space được thả ra
+                is_shooting = false;  // Cập nhật trạng thái không bắn nữa
+            }
+        }
+
+
+        m_app_state->eventProcess(&event);
+    }
+    if (is_shooting) {  // Kiểm tra nếu người chơi bắn
+        shootSound.play();  // Phát âm thanh bắn
     }
 }
+
