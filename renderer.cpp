@@ -134,5 +134,5 @@ SDL_Renderer* Renderer::getRenderer() {
 }
 
 TTF_Font* Renderer::getFont() {
-    return m_font1; // Hoặc chọn theo nhu cầu: m_font2, m_font3
+    return m_font1;
 }

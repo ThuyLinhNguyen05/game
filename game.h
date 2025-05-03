@@ -88,6 +88,7 @@ public:
     bool m_finished;
     bool m_pause;
     int m_enemy_respown_position;
+
 };
 
 #endif // GAME_H

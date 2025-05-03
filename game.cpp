@@ -25,6 +25,7 @@ Game::Game()
     m_protect_eagle_time = 0;
     m_enemy_respown_position = 0;
     nextLevel();
+
 }
 
 Game::Game(int players_count)
@@ -447,6 +448,7 @@ AppState* Game::nextState()
         Scores* scores = new Scores(m_killed_players, m_current_level, m_game_over);
         return scores;
     }
+
     Menu* m = new Menu;
     return m;
 }
@@ -847,4 +849,5 @@ void Game::generateEnemy()
 
     m_enemies.push_back(e);
 }
+
 
