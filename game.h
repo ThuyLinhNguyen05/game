@@ -90,7 +90,7 @@ public:
     int m_enemy_respown_position;
 
     void setLevel(int level);
-    bool is_single_player = true;  // mặc định là chơi 1 người
+    //bool is_single_player = true;  // mặc định là chơi 1 người
 
 
 };

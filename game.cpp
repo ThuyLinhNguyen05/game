@@ -424,20 +424,30 @@ bool Game::finished() const
 
 AppState* Game::nextState()
 {
-    if (m_game_over || m_enemy_to_kill <= 0)
+    if (m_current_level == 3) // Sau khi kết thúc màn 3
     {
-        if (m_current_level == 3) {
-            return new Menu();
-        }
-
-        Game* next_game = new Game();
-        next_game->setLevel(m_current_level + 1);
-        next_game->is_single_player = this->is_single_player;
-        return next_game;
+        // Quay lại menu
+        return new Menu();
     }
 
+    // Nếu không phải màn 3, vẫn chạy các logic bình thường
+    if (m_game_over || m_enemy_to_kill <= 0)
+    {
+        // Màn chơi xong, có thể tính điểm và quay lại menu
+        m_players.erase(std::remove_if(m_players.begin(), m_players.end(),
+            [this](Player* p) {
+                m_killed_players.push_back(p);
+                return true;
+            }), m_players.end());
+
+        Scores* scores = new Scores(m_killed_players, m_current_level, m_game_over);
+        return scores;
+    }
+
+    // Nếu không phải level cuối, tiếp tục chơi
     return nullptr;
 }
+
 
 void Game::setLevel(int level) {
     m_current_level = level;
