@@ -58,7 +58,7 @@ public:
 
     void checkCollisionTwoBullets(Bullet* bullet1, Bullet* bullet2);
 
-    // void checkCollisionPlayerWithBonus(Player* player, Bonus* bonus);
+
 
 
     int m_level_columns_count;
@@ -70,7 +70,7 @@ public:
     std::vector<Enemy*> m_enemies;
     std::vector<Player*> m_players;
     std::vector<Player*> m_killed_players;
-    //std::vector<Bonus*> m_bonuses;
+
     Eagle* m_eagle;
     int m_current_level;
     int m_player_count;
@@ -88,6 +88,10 @@ public:
     bool m_finished;
     bool m_pause;
     int m_enemy_respown_position;
+
+    void setLevel(int level);
+    bool is_single_player = true;  // mặc định là chơi 1 người
+
 
 };
 

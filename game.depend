@@ -513,7 +513,7 @@
 	"object.h"
 	<SDL.h>
 
-1746303489 c:\users\admin\downloads\game\game.h
+1746376744 c:\users\admin\downloads\game\game.h
 	"appstate.h"
 	"object.h"
 	"player.h"
@@ -589,7 +589,7 @@
 	<ctime>
 	<iostream>
 
-1746354077 source:c:\users\admin\downloads\game\game.cpp
+1746375675 source:c:\users\admin\downloads\game\game.cpp
 	"game.h"
 	"engine.h"
 	"appconfig.h"
@@ -627,9 +627,13 @@
 	<SDL_ttf.h>
 	<string>
 
-1746303489 source:c:\users\admin\downloads\game\endscreen.cpp
+1746369832 source:c:\users\admin\downloads\game\endscreen.cpp
+	"endscreen.h"
+	"engine.h"
+	"renderer.h"
+	"menu.h"
+	"appconfig.h"
 
-1746302705 c:\users\admin\downloads\game\endscreen.h
+1746369832 c:\users\admin\downloads\game\endscreen.h
 	"appstate.h"
-	<string>
 

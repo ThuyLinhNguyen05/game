@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cmath>
 
+
 Game::Game()
 {
     m_level_columns_count = 0;
@@ -423,16 +424,25 @@ bool Game::finished() const
 
 AppState* Game::nextState()
 {
-    if(m_game_over || m_enemy_to_kill <= 0)
+    if (m_game_over || m_enemy_to_kill <= 0)
     {
-        m_players.erase(std::remove_if(m_players.begin(), m_players.end(), [this](Player*p){m_killed_players.push_back(p); return true;}), m_players.end());
-        Scores* scores = new Scores(m_killed_players, m_current_level, m_game_over);
-        return scores;
+        if (m_current_level == 3) {
+            return new Menu();
+        }
+
+        Game* next_game = new Game();
+        next_game->setLevel(m_current_level + 1);
+        next_game->is_single_player = this->is_single_player;
+        return next_game;
     }
 
-    Menu* m = new Menu;
-    return m;
+    return nullptr;
 }
+
+void Game::setLevel(int level) {
+    m_current_level = level;
+}
+
 
 void Game::clearLevel()
 {
@@ -830,5 +840,6 @@ void Game::generateEnemy()
 
     m_enemies.push_back(e);
 }
+
 
 
