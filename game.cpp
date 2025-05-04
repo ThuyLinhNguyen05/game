@@ -774,7 +774,7 @@ void Game::nextLevel()
     m_finished = false;
     m_enemy_to_kill = AppConfig::enemy_start_count;
 
-    std::string level_path = AppConfig::levels_path + Engine::intToString(m_current_level) + "1.txt";
+    std::string level_path = AppConfig::levels_path + Engine::intToString(m_current_level) + ".txt";
     loadLevel(level_path);
 
     if(m_players.empty())
