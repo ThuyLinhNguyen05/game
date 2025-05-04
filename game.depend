@@ -589,7 +589,7 @@
 	<ctime>
 	<iostream>
 
-1746212965 source:c:\users\admin\downloads\game\game.cpp
+1746303489 source:c:\users\admin\downloads\game\game.cpp
 	"game.h"
 	"engine.h"
 	"appconfig.h"
@@ -627,10 +627,7 @@
 	<SDL_ttf.h>
 	<string>
 
-1746302705 source:c:\users\admin\downloads\game\endscreen.cpp
-	"endscreen.h"
-	"engine.h"
-	"renderer.h"
+1746303489 source:c:\users\admin\downloads\game\endscreen.cpp
 
 1746302705 c:\users\admin\downloads\game\endscreen.h
 	"appstate.h"

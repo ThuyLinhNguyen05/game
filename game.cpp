@@ -303,25 +303,6 @@ void Game::update(Uint32 dt)
                 }
             }
 
-            /*if(m_protect_eagle && m_protect_eagle_time > AppConfig::protect_eagle_time / 4 * 3 && m_protect_eagle_time / AppConfig::bonus_blink_time % 2)
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    if(m_level.at(m_level_rows_count - i - 1).at(11) != nullptr)
-                        delete m_level.at(m_level_rows_count - i - 1).at(11);
-                    m_level.at(m_level_rows_count - i - 1).at(11) = new Brick(11 * AppConfig::tile_rect.w, (m_level_rows_count - i - 1) * AppConfig::tile_rect.h);
-
-                    if(m_level.at(m_level_rows_count - i - 1).at(14) != nullptr)
-                        delete m_level.at(m_level_rows_count - i - 1).at(14);
-                    m_level.at(m_level_rows_count - i - 1).at(14) = new Brick(14 * AppConfig::tile_rect.w, (m_level_rows_count - i - 1)  * AppConfig::tile_rect.h);
-                }
-                for(int i = 12; i < 14; i++)
-                {
-                    if(m_level.at(m_level_rows_count - 3).at(i) != nullptr)
-                        delete m_level.at(m_level_rows_count - 3).at(i);
-                    m_level.at(m_level_rows_count - 3).at(i) = new Brick(i * AppConfig::tile_rect.w, (m_level_rows_count - 3) * AppConfig::tile_rect.h);
-                }
-            }*/
             else if(m_protect_eagle)
             {
                 for(int i = 0; i < 3; i++)
@@ -793,7 +774,7 @@ void Game::nextLevel()
     m_finished = false;
     m_enemy_to_kill = AppConfig::enemy_start_count;
 
-    std::string level_path = AppConfig::levels_path + Engine::intToString(m_current_level);
+    std::string level_path = AppConfig::levels_path + Engine::intToString(m_current_level) + "1.txt";
     loadLevel(level_path);
 
     if(m_players.empty())
