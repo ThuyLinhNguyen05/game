@@ -48,7 +48,6 @@ enum TankStateFlag
     TSF_FROZEN = 1 << 2, //Khi đối phương nhận đc đồng hồ (bị đóng băng)
     TSF_DESTROYED = 1 << 3, //Khi bị bắn trúng
     TSF_BOAT = 1 << 4, //Khi nhận được thuyển, đc đi qua nc
-    //TSF_BONUS = 1 << 5,
     TSF_ON_ICE = 1 << 6, //Nếu xe tăng đang ở trên băng nó sẽ trượt
     TSF_CREATE = 1 << 7, //Trạng thái đang tạo xe tăng
     TSF_LIFE = 1 << 8, //Trạng thái mạng sống

@@ -461,7 +461,7 @@
 	<map>
 	<SDL.h>
 
-1746114148 c:\users\admin\downloads\game\type.h
+1746443049 c:\users\admin\downloads\game\type.h
 
 1745989520 source:c:\users\admin\downloads\game\eagle.cpp
 	"eagle.h"
@@ -513,7 +513,7 @@
 	"object.h"
 	<SDL.h>
 
-1746377914 c:\users\admin\downloads\game\game.h
+1746443049 c:\users\admin\downloads\game\game.h
 	"appstate.h"
 	"object.h"
 	"player.h"

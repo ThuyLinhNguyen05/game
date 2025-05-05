@@ -91,8 +91,6 @@ public:
 
     void setLevel(int level);
 
-
-
 };
 
 #endif // GAME_H
